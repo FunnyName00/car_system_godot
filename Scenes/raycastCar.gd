@@ -12,7 +12,7 @@ extends RigidBody3D
 var motor_input := 0
 var hand_brake := false
 var is_slipping := false
-
+var grounded := false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("handbrake"):
@@ -28,10 +28,10 @@ func _basic_steering_rotation(delta: float):
 	var turn_input := Input.get_axis("turn_right", "turn_left") * tire_turn_speed
 	
 	if turn_input:
-		$WheelFL.rotation.y = clampf(turn_input * 10 * delta,
-		deg_to_rad(-tire_max_turn_degrees), deg_to_rad(tire_max_turn_degrees))
-		$WheelFR.rotation.y = clampf(turn_input * 10 * delta,
-		deg_to_rad(-tire_max_turn_degrees), deg_to_rad(tire_max_turn_degrees))
+		$WheelFL.rotation.y = move_toward($WheelFL.rotation.y,clampf(turn_input * 10 * delta,
+		deg_to_rad(-tire_max_turn_degrees), deg_to_rad(tire_max_turn_degrees)), tire_turn_speed * delta ) 
+		$WheelFR.rotation.y = move_toward($WheelFR.rotation.y,clampf(turn_input * 10 * delta,
+				deg_to_rad(-tire_max_turn_degrees), deg_to_rad(tire_max_turn_degrees)), tire_turn_speed * delta ) 
 
 	else:
 		$WheelFL.rotation.y = move_toward($WheelFL.rotation.y, 0, tire_turn_speed * delta)
@@ -41,11 +41,15 @@ func _basic_steering_rotation(delta: float):
 
 func _physics_process(_delta: float) -> void:
 	_basic_steering_rotation(_delta)
-	var grounded := false
+	grounded = false
 	var id := 0
 	for wheel in wheels:
 		if wheel.is_colliding():
 			grounded = true
+		
+		if not grounded:
+			skid_marks[id].emitting = false
+			
 		wheel.force_raycast_update()
 		_do_single_wheel_suspension(wheel)
 		_do_single_wheel_acceleration(wheel)
@@ -55,6 +59,7 @@ func _physics_process(_delta: float) -> void:
 	if grounded :
 		center_of_mass = Vector3.ZERO
 	else:
+
 		center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
 		center_of_mass = Vector3.DOWN * 0.5
 
@@ -73,20 +78,21 @@ func _do_single_wheel_traction(ray: RaycastWheel, idx :int):
 	var x_traction := ray.grip_curve.sample_baked(grip_factor)
 	
 	# Skid marks
+	
 	skid_marks[idx].global_position = ray.get_collision_point() + Vector3.UP * 0.01
 	skid_marks[idx].look_at(skid_marks[idx].global_position + global_basis.z)
-	
+
 	if not hand_brake and grip_factor < 0.2:
 		is_slipping = false
 		skid_marks[idx].emitting = false
-	
+
 	if hand_brake:
 		x_traction = 0.01
 		if not skid_marks[idx].emitting:
 			skid_marks[idx].emitting = true
 	elif is_slipping:
 		x_traction = 0.1
-
+	
 	var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 	var x_force := -steer_side_dir * steering_x_vel * x_traction * ((mass * gravity)/4.0)
 	

@@ -68,6 +68,7 @@ wheels = [NodePath("WheelFL"), NodePath("WheelRL"), NodePath("WheelFR"), NodePat
 acceleration = 800.0
 max_speed = 60.0
 accel_curve = SubResource("Curve_yi23e")
+tire_turn_speed = 20.0
 skid_marks = [NodePath("SkidMarks/GPUParticles3D"), NodePath("SkidMarks/GPUParticles3D2"), NodePath("SkidMarks/GPUParticles3D3"), NodePath("SkidMarks/GPUParticles3D4")]
 
 [node name="CarMesh" type="MeshInstance3D" parent="." unique_id=906124746]
