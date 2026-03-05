@@ -1,20 +1,9 @@
 [gd_scene format=3 uid="uid://urc53u7h1h5l"]
 
 [ext_resource type="PackedScene" uid="uid://b46nr2r2cgfoc" path="res://Scenes/car.tscn" id="1_jjgbg"]
-[ext_resource type="Texture2D" uid="uid://cx0apl4yxcjx7" path="res://Prototype_textures/PNG/Light/texture_06.png" id="2_8gbba"]
 [ext_resource type="Texture2D" uid="uid://buefnlcrhw34i" path="res://icon.svg" id="3_8gbba"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjvhh"]
-albedo_texture = ExtResource("2_8gbba")
-
-[sub_resource type="BoxMesh" id="BoxMesh_bo1nx"]
-size = Vector3(1, 0, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_8gbba"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_jjvhh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bo1nx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bo1nx"]
 panorama = ExtResource("3_8gbba")
@@ -42,30 +31,13 @@ directional_shadow_split_1 = 0.48
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9202416, -106.20232)
 mass = 50.0
 
-[node name="Camera3D" type="Camera3D" parent="Car" unique_id=1440388947]
-transform = Transform3D(-0.9913771, 0.024883639, -0.12865575, -0.0046529425, 0.9745011, 0.22433469, 0.13095744, 0.22299892, -0.9659822, -3.7385845, 3.031572, -14.690292)
-
 [node name="Floor" type="Node3D" parent="." unique_id=2031093265]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=1806535192]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D" unique_id=1834935185]
-material_override = SubResource("StandardMaterial3D_jjvhh")
-mesh = SubResource("BoxMesh_bo1nx")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=720058248]
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor" unique_id=1808207435]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-shape = SubResource("BoxShape3D_jjgbg")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="Floor" unique_id=273702115]
-transform = Transform3D(-0.08, 0, 0, 0, -0.04246811, 0.067797184, 0, -0.067797184, -0.04246811, 0, -0.041443177, 0.09058418)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D2" unique_id=2071968517]
-mesh = SubResource("BoxMesh_8gbba")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D2" unique_id=40875358]
-shape = SubResource("BoxShape3D_jjvhh")
+use_collision = true
+material = SubResource("StandardMaterial3D_bo1nx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=124334381]
 environment = SubResource("Environment_8gbba")

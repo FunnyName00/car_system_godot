@@ -1,22 +1,21 @@
 [gd_scene format=3 uid="uid://b46nr2r2cgfoc"]
 
 [ext_resource type="Script" uid="uid://doe47qwqjcdu2" path="res://Scenes/raycastCar.gd" id="1_go66d"]
-[ext_resource type="Texture2D" uid="uid://b4y746une4bsg" path="res://Prototype_textures/PNG/Green/texture_09.png" id="1_wqo35"]
+[ext_resource type="Script" uid="uid://ch6qe5c4rv0qx" path="res://Scenes/car_follow_camera.gd" id="3_1sfmx"]
 [ext_resource type="Script" uid="uid://bsll1pgm8riky" path="res://Scenes/raycast_wheel.gd" id="3_yi23e"]
-[ext_resource type="Texture2D" uid="uid://bw5cnnti8u5bi" path="res://Prototype_textures/PNG/Light/texture_11.png" id="4_yi23e"]
 
 [sub_resource type="Curve" id="Curve_yi23e"]
 _data = [Vector2(0, 0.3), 0.0, 0.0, 0, 0, Vector2(0.3, 0.90000004), 0.0, 0.0, 0, 0, Vector2(0.6, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kry3j"]
-albedo_texture = ExtResource("1_wqo35")
+albedo_color = Color(1, 1, 0.27058825, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_21xkr"]
 size = Vector3(2, 0.5, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6bp64"]
-albedo_texture = ExtResource("1_wqo35")
+albedo_color = Color(0.05882353, 1, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_344ge"]
 size = Vector3(0.64, 0.4, 1.8)
@@ -30,8 +29,12 @@ point_count = 3
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_go66d"]
+size = Vector2(5, 0)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yi23e"]
-albedo_texture = ExtResource("4_yi23e")
+albedo_color = Color(1, 0.07058824, 1, 1)
+albedo_texture = SubResource("PlaceholderTexture2D_go66d")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_u41r7"]
 top_radius = 0.4
@@ -176,3 +179,11 @@ lifetime = 1.5
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_aky6y")
 draw_pass_1 = SubResource("QuadMesh_y3wrf")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=714918110]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1490785303]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2, -6)
+top_level = true
+current = true
+script = ExtResource("3_1sfmx")

@@ -1,0 +1,9 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1772692906
+icon.svg::CompressedTexture2D::3798782449383698834::1772692778::1772692833::1::::<><><>0<>0<>5308b938f9279c99dcdca821f8de521c<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.s3tc.ctex::
+README.md::TextFile::-1::1772692778::0::1::::<><><>0<>0<><>::
+::res://Scenes/::1772692778
+car.tscn::PackedScene::4486713984596040674::1772692778::0::1::::<><><>0<>0<><>::uid://doe47qwqjcdu2::::res://Scenes/raycastCar.gd<>uid://b4y746une4bsg::::res://Prototype_textures/PNG/Green/texture_09.png<>uid://bsll1pgm8riky::::res://Scenes/raycast_wheel.gd<>uid://bw5cnnti8u5bi::::res://Prototype_textures/PNG/Light/texture_11.png
+main.tscn::PackedScene::1439047805396554979::1772692778::0::1::::<><><>0<>0<><>::uid://b46nr2r2cgfoc::::res://Scenes/car.tscn<>uid://cx0apl4yxcjx7::::res://Prototype_textures/PNG/Light/texture_06.png<>uid://buefnlcrhw34i::::res://icon.svg
+raycastCar.gd::GDScript::8151982186321555823::1772692778::0::1::::<>RigidBody3D<><>0<>0<><>::
+raycast_wheel.gd::GDScript::3673243139743380516::1772692778::0::1::::RaycastWheel<>RayCast3D<><>0<>0<><>::
